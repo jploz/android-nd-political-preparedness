@@ -20,6 +20,10 @@ android {
         versionName "1.0"
     }
     buildTypes {
+        debug {
+            buildConfigField "String" , "GOOGLE_CIVIC_INFO_API_KEY" ,  "\"$GOOGLE_CIVIC_INFO_API_KEY\""
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

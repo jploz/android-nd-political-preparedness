@@ -21,7 +21,8 @@ private val retrofit = Retrofit.Builder()
         .build()
 
 /**
- *  Documentation for the Google Civics API Service can be found at https://developers.google.com/civic-information/docs/v2
+ *  Documentation for the Google Civics API Service can be found at
+ *  https://developers.google.com/civic-information/docs/v2
  */
 
 interface CivicsApiService {

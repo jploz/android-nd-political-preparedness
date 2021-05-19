@@ -4,15 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/launchFragmentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/default_padding"
         tools:context="com.example.android.politicalpreparedness.MainActivity">
 
-        <!-- TODO: Add image for home screen logo. -->
+        <!-- image for home screen logo -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/ballot_logo_content_description"
+            android:src="@drawable/ballot_logo"
+            app:layout_constraintBottom_toTopOf="@id/upcomingButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- TODO: Add Button to navigate to upcoming elections. -->
+        <!-- button to navigate to upcoming elections -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/upcomingButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_padding"
+            android:text="@string/upcoming_elections"
+            app:layout_constraintBottom_toTopOf="@id/representativeButton"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- TODO: Add Button to navigate to representatives. -->
+        <!-- button to navigate to representatives -->
+        <Button
+            android:id="@+id/representativeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/find_my_representatives"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

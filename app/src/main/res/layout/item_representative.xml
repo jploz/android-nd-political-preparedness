@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="representative"
+            type="com.example.android.politicalpreparedness.representative.model.Representative" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_padding">
+
+            <ImageView
+                android:id="@+id/representativePicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_profile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/representativeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin"
+                android:text="@{representative.office.name}"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/representativeName"
+                app:layout_constraintStart_toEndOf="@+id/representativePicture"
+                app:layout_constraintTop_toTopOf="@+id/representativePicture"
+                tools:text="Representative's title (office name)" />
+
+            <TextView
+                android:id="@+id/representativeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{representative.official.name}"
+                app:layout_constraintBottom_toTopOf="@id/representativeParty"
+                app:layout_constraintStart_toStartOf="@+id/representativeTitle"
+                app:layout_constraintTop_toBottomOf="@id/representativeTitle"
+                tools:text="Name of representative" />
+
+            <TextView
+                android:id="@+id/representativeParty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{representative.official.party}"
+                app:layout_constraintStart_toStartOf="@+id/representativeName"
+                app:layout_constraintTop_toBottomOf="@id/representativeName"
+                tools:text="Party of representative" />
+
+            <ImageView
+                android:id="@+id/facebookIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="@dimen/default_margin"
+                android:src="@drawable/ic_facebook"
+                app:layout_constraintBottom_toBottomOf="@+id/representativePicture"
+                app:layout_constraintEnd_toStartOf="@id/twitterIcon"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/twitterIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="@dimen/default_margin"
+                android:src="@drawable/ic_twitter"
+                app:layout_constraintBottom_toBottomOf="@id/facebookIcon"
+                app:layout_constraintEnd_toStartOf="@id/wwwIcon"
+                app:layout_constraintStart_toEndOf="@id/facebookIcon" />
+
+            <ImageView
+                android:id="@+id/wwwIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="@dimen/default_margin"
+                android:src="@drawable/ic_www"
+                app:layout_constraintBottom_toBottomOf="@id/twitterIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/twitterIcon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

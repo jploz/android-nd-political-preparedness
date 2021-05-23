@@ -7,39 +7,61 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.politicalpreparedness.R
-import com.example.android.politicalpreparedness.databinding.ViewholderRepresentativeBinding
+import com.example.android.politicalpreparedness.databinding.ItemRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Channel
 import com.example.android.politicalpreparedness.representative.model.Representative
 
-class RepresentativeListAdapter: ListAdapter<Representative, RepresentativeViewHolder>(RepresentativeDiffCallback()){
+class RepresentativeListAdapter(private val clickListener: RepresentativeListener):
+    ListAdapter<Representative, RepresentativeViewHolder>(RepresentativeDiffCallback){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepresentativeViewHolder {
-        return RepresentativeViewHolder.from(parent)
-    }
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): RepresentativeViewHolder = RepresentativeViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: RepresentativeViewHolder, position: Int) {
         val item = getItem(position)
+        holder.itemView.setOnClickListener {
+            clickListener.onClick(item)
+        }
         holder.bind(item)
+    }
+
+    class RepresentativeListener(val clickListener: (item: Representative) -> Unit) {
+        fun onClick(item: Representative) = clickListener(item)
+    }
+
+    companion object RepresentativeDiffCallback : DiffUtil.ItemCallback<Representative>() {
+
+        override fun areItemsTheSame(oldItem: Representative, newItem: Representative): Boolean {
+            //TODO: should identity check for something else like e.g. official's name?
+            return oldItem === newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Representative, newItem: Representative): Boolean {
+            return oldItem == newItem
+        }
     }
 }
 
-class RepresentativeViewHolder(val binding: ViewholderRepresentativeBinding): RecyclerView.ViewHolder(binding.root) {
+class RepresentativeViewHolder(val binding: ItemRepresentativeBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Representative) {
         binding.representative = item
-        binding.representativePhoto.setImageResource(R.drawable.ic_profile)
+        binding.representativePicture.setImageResource(R.drawable.ic_profile)
 
         //TODO: Show social links ** Hint: Use provided helper methods
         //TODO: Show www link ** Hint: Use provided helper methods
 
         binding.executePendingBindings()
     }
-
-    //TODO: Add companion object to inflate ViewHolder (from)
 
     private fun showSocialLinks(channels: List<Channel>) {
         val facebookUrl = getFacebookUrl(channels)
@@ -76,8 +98,18 @@ class RepresentativeViewHolder(val binding: ViewholderRepresentativeBinding): Re
         itemView.context.startActivity(intent)
     }
 
+    companion object {
+        @LayoutRes
+        val LAYOUT = R.layout.item_election
+
+        fun from(parent: ViewGroup): RepresentativeViewHolder {
+            val dataBinding: ItemRepresentativeBinding = DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                LAYOUT,
+                parent,
+                false
+            )
+            return RepresentativeViewHolder(dataBinding)
+        }
+    }
 }
-
-//TODO: Create RepresentativeDiffCallback
-
-//TODO: Create RepresentativeListener

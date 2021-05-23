@@ -4,5 +4,8 @@
     <string name="ballot_logo_content_description">App logo showing ballot box</string>
     <string name="upcoming_elections">Upcoming Elections</string>
     <string name="find_my_representatives">Find my representatives</string>
+    <string name="favorite_elections">Bookmarked elections</string>
+    <string name="no_elections">No elections found</string>
+    <string name="no_favorite_elections">No elections bookmarked</string>
 
 </resources>

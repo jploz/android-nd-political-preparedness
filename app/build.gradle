@@ -86,4 +86,6 @@ dependencies {
 
     // Location
     implementation "com.google.android.gms:play-services-location:$version_play_services_location"
+
+    implementation "com.jakewharton.timber:timber:$version_timber_logging"
 }

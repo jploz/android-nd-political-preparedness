@@ -4,28 +4,48 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.android.politicalpreparedness.PoliticalPreparednessApp
+import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
+import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
 
-class ElectionsFragment: Fragment() {
+class ElectionsFragment : Fragment() {
 
-    //TODO: Declare ViewModel
-
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-
-        //TODO: Add ViewModel values and create ViewModel
-
-        //TODO: Add binding values
-
-        //TODO: Link elections to voter info
-
-        //TODO: Initiate recycler adapters
-
-        //TODO: Populate recycler adapters
-
+    // declare ViewModel, data is loaded when view model is created
+    private val viewModel by viewModels<ElectionsViewModel> {
+        ElectionsViewModelFactory(
+            (requireContext().applicationContext as PoliticalPreparednessApp).electionsRepository
+        )
     }
 
-    //TODO: Refresh adapters when fragment loads
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val binding = FragmentElectionBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
+        val upcomingElectionListAdapter =
+            ElectionListAdapter(ElectionListAdapter.ElectionListener { election ->
+                this.findNavController()
+                    .navigate(
+                        ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(
+                            election.id,
+                            election.division
+                        )
+                    )
+            })
+        binding.upcomingElectionsList.adapter = upcomingElectionListAdapter
+
+        viewModel.errorMessage.observe(viewLifecycleOwner, { resId ->
+            Toast.makeText(requireActivity(), getString(resId), Toast.LENGTH_LONG).show()
+        })
+
+        return binding.root
+    }
 }

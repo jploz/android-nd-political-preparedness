@@ -7,5 +7,6 @@
     <string name="favorite_elections">Bookmarked elections</string>
     <string name="no_elections">No elections found</string>
     <string name="no_favorite_elections">No elections bookmarked</string>
+    <string name="error_refreshing_elections">Unable to get elections data!</string>
 
 </resources>

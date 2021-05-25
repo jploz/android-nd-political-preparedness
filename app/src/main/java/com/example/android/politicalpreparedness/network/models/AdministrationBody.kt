@@ -8,5 +8,6 @@ data class AdministrationBody(
     val electionInfoUrl: String? = null,
     val votingLocationFinderUrl: String? = null,
     val ballotInfoUrl: String? = null,
-    val correspondenceAddress: Address? = null
+    val correspondenceAddress: Address? = null,
+    val physicalAddress: Address? = null
 )

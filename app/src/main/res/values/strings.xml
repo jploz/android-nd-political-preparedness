@@ -8,5 +8,10 @@
     <string name="no_elections">No elections found</string>
     <string name="no_favorite_elections">No elections bookmarked</string>
     <string name="error_refreshing_elections">Unable to get elections data!</string>
+    <string name="address_not_available">Address not available</string>
+    <string name="location_finder_url_not_available">Voting locations not available</string>
+    <string name="ballot_info_url_not_available">Ballot information not available</string>
+    <string name="address_title">Address</string>
+    <string name="election_information_title">Election Information</string>
 
 </resources>

@@ -2,7 +2,9 @@ package com.example.android.politicalpreparedness.repository
 
 import com.example.android.politicalpreparedness.database.ElectionDao
 import com.example.android.politicalpreparedness.network.CivicsApiService
+import com.example.android.politicalpreparedness.network.models.Division
 import com.example.android.politicalpreparedness.network.models.Election
+import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -19,6 +21,8 @@ class ElectionsRepository(
         return electionDao.getAllElectionsAfterInclusive(date = today)
     }
 
+    fun getElectionById(id: Int): Flow<Election> = electionDao.getElectionById(id)
+
     suspend fun refreshUpcomingElections() {
         withContext(Dispatchers.IO) {
             try {
@@ -28,6 +32,25 @@ class ElectionsRepository(
                 Timber.e("Unable to query elections: $e")
                 throw e
             }
+        }
+    }
+
+    //TODO: move into voter info parser
+    fun getVoterInfoAddressFromDivision(division: Division): String {
+        // VIP test election (id=2000) provides only country code, no state code: voter info n.a.
+        // some elections require an address in the form: "state country" e.g. "va us"
+        if (division.state.isBlank()) {
+            throw Exception("Unable to get address from division: state is not available")
+        }
+        if (division.country.isNotBlank()) {
+            return division.state.plus(" ").plus(division.country)
+        }
+        return division.state
+    }
+
+    suspend fun getVoterInfo(electionId: Int, address: String): VoterInfoResponse {
+        return withContext(Dispatchers.IO) {
+            civicsApiService.getVoterInfo(electionId, address)
         }
     }
 }

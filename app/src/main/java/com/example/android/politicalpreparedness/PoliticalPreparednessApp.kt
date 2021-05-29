@@ -2,6 +2,7 @@ package com.example.android.politicalpreparedness
 
 import android.app.Application
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
+import com.example.android.politicalpreparedness.repository.RepresentativesRepository
 import timber.log.Timber
 
 /**
@@ -13,6 +14,9 @@ class PoliticalPreparednessApp : Application() {
 
     val electionsRepository: ElectionsRepository
         get() = ServiceLocator.provideElectionsRepository(this)
+
+    val representativesRepository: RepresentativesRepository
+        get() = ServiceLocator.provideRepresentativesRepository(this)
 
     override fun onCreate() {
         super.onCreate()

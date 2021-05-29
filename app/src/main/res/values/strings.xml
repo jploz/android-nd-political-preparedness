@@ -13,5 +13,17 @@
     <string name="ballot_info_url_not_available">Ballot information not available</string>
     <string name="address_title">Address</string>
     <string name="election_information_title">Election Information</string>
+    <string name="representative_search_title">Representative Search</string>
+    <string name="use_my_location">Use my location</string>
+    <string name="my_representatives_title">My Representatives</string>
+    <string name="location_permission_rationale">"Please enable location access in order to use your location for address search."</string>
+    <string name="location_required_error">Location services must be enabled to use your location</string>
+    <string name="location_permission_denied_hint">"Unable to use my location since location access was denied."</string>
+    <string name="settings">Settings</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="street">Street</string>
+    <string name="street_no">Street/No.</string>
+    <string name="city">City</string>
+    <string name="zip">ZIP</string>
 
 </resources>

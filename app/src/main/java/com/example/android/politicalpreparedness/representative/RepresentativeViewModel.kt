@@ -1,26 +1,52 @@
 package com.example.android.politicalpreparedness.representative
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.repository.RepresentativesRepository
+import com.example.android.politicalpreparedness.representative.model.Representative
+import com.example.android.politicalpreparedness.representative.model.UserAddress
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
-class RepresentativeViewModel: ViewModel() {
+//TODO: handle setting state from spinner
+//TODO: display error messages to user using event or similar
 
-    //TODO: Establish live data for representatives and address
+class RepresentativeViewModel(
+    private val representativesRepository: RepresentativesRepository
+) : ViewModel() {
 
-    //TODO: Create function to fetch representatives from API from a provided address
+    // establish live data for representatives and address
+    private val _address = MutableLiveData(UserAddress())
+    val address: LiveData<UserAddress> = _address
 
-    /**
-     *  The following code will prove helpful in constructing a representative from the API. This code combines the two nodes of the RepresentativeResponse into a single official :
+    private val _representatives = MutableLiveData<List<Representative>>()
+    val representatives: LiveData<List<Representative>> = _representatives
 
-    val (offices, officials) = getRepresentativesDeferred.await()
-    _representatives.value = offices.flatMap { office -> office.getRepresentatives(officials) }
+    // function to fetch representatives from API from a provided address
+    fun loadRepresentatives() {
+        val userAddress = address.value
+        Timber.d("queryRepresentatives for address: $userAddress")
+        if (userAddress != null) {
+            viewModelScope.launch {
+                try {
+                    _representatives.value =
+                        representativesRepository.getRepresentatives(userAddress)
+                    Timber.d("Representatives: ${_representatives.value}")
 
-    Note: getRepresentatives in the above code represents the method used to fetch data from the API
-    Note: _representatives in the above code represents the established mutable live data housing representatives
+                } catch (e: Exception) {
+                    //TODO: handle network error (e.g. invalid address)
+                    Timber.e("$e")
+                _representatives.value = emptyList()
+                }
+            }
+        } else {
+            Timber.w("Unable to load representatives: address is not set")
+        }
+    }
 
-     */
-
-    //TODO: Create function get address from geo location
-
-    //TODO: Create function to get address from individual fields
-
+    fun setAddress(userAddress: UserAddress) {
+        _address.value = userAddress
+    }
 }

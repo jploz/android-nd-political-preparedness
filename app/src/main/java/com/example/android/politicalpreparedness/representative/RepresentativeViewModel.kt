@@ -10,7 +10,6 @@ import com.example.android.politicalpreparedness.representative.model.UserAddres
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-//TODO: handle setting state from spinner
 //TODO: display error messages to user using event or similar
 
 class RepresentativeViewModel(

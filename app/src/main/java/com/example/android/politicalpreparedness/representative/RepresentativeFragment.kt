@@ -194,8 +194,7 @@ class DetailFragment : Fragment() {
                 requireView(),
                 R.string.location_required_error, Snackbar.LENGTH_INDEFINITE
             ).setAction(android.R.string.ok) {
-                //TODO: passing resolve=false ???
-                checkLocationSettingsAndGetLocation()
+                checkLocationSettingsAndGetLocation(resolve = false)
             }.show()
         }
     }

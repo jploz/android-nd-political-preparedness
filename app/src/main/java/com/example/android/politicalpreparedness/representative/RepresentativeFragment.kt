@@ -20,6 +20,7 @@ import androidx.fragment.app.viewModels
 import com.example.android.politicalpreparedness.PoliticalPreparednessApp
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
+import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
 import com.example.android.politicalpreparedness.representative.model.UserAddress
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -82,8 +83,7 @@ class DetailFragment : Fragment() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
-        //TODO: Define and assign Representative adapter
-        //TODO: Populate Representative adapter
+        binding.representativesList.adapter = RepresentativeListAdapter()
 
         binding.buttonLocation.setOnClickListener {
             onClickButtonLocation()

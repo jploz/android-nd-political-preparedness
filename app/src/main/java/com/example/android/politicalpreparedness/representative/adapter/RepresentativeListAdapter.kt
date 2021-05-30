@@ -17,7 +17,7 @@ import com.example.android.politicalpreparedness.databinding.ItemRepresentativeB
 import com.example.android.politicalpreparedness.network.models.Channel
 import com.example.android.politicalpreparedness.representative.model.Representative
 
-class RepresentativeListAdapter(private val clickListener: RepresentativeListener):
+class RepresentativeListAdapter:
     ListAdapter<Representative, RepresentativeViewHolder>(RepresentativeDiffCallback){
 
     override fun onCreateViewHolder(
@@ -27,14 +27,7 @@ class RepresentativeListAdapter(private val clickListener: RepresentativeListene
 
     override fun onBindViewHolder(holder: RepresentativeViewHolder, position: Int) {
         val item = getItem(position)
-        holder.itemView.setOnClickListener {
-            clickListener.onClick(item)
-        }
         holder.bind(item)
-    }
-
-    class RepresentativeListener(val clickListener: (item: Representative) -> Unit) {
-        fun onClick(item: Representative) = clickListener(item)
     }
 
     companion object RepresentativeDiffCallback : DiffUtil.ItemCallback<Representative>() {
@@ -100,7 +93,7 @@ class RepresentativeViewHolder(val binding: ItemRepresentativeBinding) :
 
     companion object {
         @LayoutRes
-        val LAYOUT = R.layout.item_election
+        val LAYOUT = R.layout.item_representative
 
         fun from(parent: ViewGroup): RepresentativeViewHolder {
             val dataBinding: ItemRepresentativeBinding = DataBindingUtil.inflate(

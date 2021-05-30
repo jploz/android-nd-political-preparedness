@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -13,7 +16,10 @@
         android:id="@+id/representativeFragmentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/medium_padding">
+        android:paddingStart="@dimen/medium_padding"
+        android:paddingTop="@dimen/medium_padding"
+        android:paddingEnd="@dimen/medium_padding"
+        android:paddingBottom="@dimen/default_padding">
 
         <TextView
             android:id="@+id/search_title"
@@ -116,21 +122,33 @@
             android:text="@string/my_representatives_title"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:visibility="@{viewModel.representatives.size() == 0 ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_location" />
 
-        <!-- TODO: Add Representatives RecyclerView -->
-
-        <!-- TODO: Add visual styling and content -->
         <TextView
             android:id="@+id/list_placeholder"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"
-            android:text="@string/placeholder"
+            android:text="@string/no_representatives_available"
             android:textAlignment="center"
+            android:visibility="@{viewModel.representatives.size() == 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/representativeTitle" />
+            app:layout_constraintTop_toBottomOf="@id/button_location" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/representativesList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="@{viewModel.representatives.size() == 0 ? View.GONE : View.VISIBLE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/representativeTitle"
+            app:listData="@{viewModel.representatives}"
+            tools:listitem="@layout/item_representative" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

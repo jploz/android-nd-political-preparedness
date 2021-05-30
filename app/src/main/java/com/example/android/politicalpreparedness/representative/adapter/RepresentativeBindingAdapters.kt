@@ -66,3 +66,9 @@ fun setStateListener(spinner: Spinner, stateChange: InverseBindingListener?) {
 inline fun <reified T> toTypedAdapter(adapter: ArrayAdapter<*>): ArrayAdapter<T> {
     return adapter as ArrayAdapter<T>
 }
+
+@BindingAdapter("listData")
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<Representative>?) {
+    val adapter = recyclerView.adapter as RepresentativeListAdapter
+    adapter.submitList(data)
+}

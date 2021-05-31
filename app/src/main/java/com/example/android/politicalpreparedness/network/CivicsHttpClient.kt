@@ -8,7 +8,7 @@ class CivicsHttpClient : OkHttpClient() {
 
     companion object {
 
-        const val GOOGLE_CIVIC_INFO_API_KEY = BuildConfig.GOOGLE_CIVIC_INFO_API_KEY
+        private const val GOOGLE_CIVIC_INFO_API_KEY = BuildConfig.GOOGLE_CIVIC_INFO_API_KEY
 
         fun getClient(): OkHttpClient {
 

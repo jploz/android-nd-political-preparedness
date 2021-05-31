@@ -10,14 +10,24 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import androidx.recyclerview.widget.RecyclerView
+import com.example.android.politicalpreparedness.GlideApp
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.representative.model.Representative
+import timber.log.Timber
 
 @BindingAdapter("profileImage")
 fun fetchImage(view: ImageView, src: String?) {
+    Timber.d("fetchImage for: $src")
     src?.let {
         val uri = src.toUri().buildUpon().scheme("https").build()
-        //TODO: Add Glide call to load image and circle crop - user ic_profile as a placeholder and for errors.
+        // load image and circle crop using glide - user ic_profile as a placeholder and for errors
+        GlideApp
+            .with(view.context)
+            .load(uri)
+            .circleCrop()
+            .placeholder(R.drawable.ic_profile)
+            .error(R.drawable.ic_profile)
+            .into(view)
     }
 }
 

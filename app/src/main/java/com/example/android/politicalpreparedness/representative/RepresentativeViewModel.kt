@@ -37,7 +37,7 @@ class RepresentativeViewModel(
                 } catch (e: Exception) {
                     //TODO: handle network error (e.g. invalid address)
                     Timber.e("$e")
-                _representatives.value = emptyList()
+                    _representatives.value = emptyList()
                 }
             }
         } else {

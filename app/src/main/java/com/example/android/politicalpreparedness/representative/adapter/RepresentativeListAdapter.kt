@@ -33,7 +33,7 @@ class RepresentativeListAdapter :
     companion object RepresentativeDiffCallback : DiffUtil.ItemCallback<Representative>() {
 
         override fun areItemsTheSame(oldItem: Representative, newItem: Representative): Boolean {
-            //TODO: should identity check for something else like e.g. official's name?
+            // should identity check for something else like e.g. official's name?
             return oldItem === newItem
         }
 

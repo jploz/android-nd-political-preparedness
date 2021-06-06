@@ -45,7 +45,6 @@ class VoterInfoViewModel(
         viewModelScope.launch {
             election.value?.let { currentSelection ->
                 val fav = electionsRepository.getFavoriteById(currentSelection.id).firstOrNull()
-                Timber.d("Favorite from DB: $fav")
                 if (fav != null) {
                     electionsRepository.unmarkElectionAsFavorite(fav.id)
                     _isFavorite.value = false
@@ -59,9 +58,6 @@ class VoterInfoViewModel(
 
     //TODO: rename to `setupElectionInfo`
     fun loadVoterInfo(electionId: Int, division: Division) {
-        //TODO: improve check of passed arguments e.g. division.state? (not empty, valid, etc.)?
-        Timber.d("setupElectionInfo: election: $electionId")
-
         viewModelScope.launch {
             try {
                 _election.value = electionsRepository.getElectionById(electionId).first()

@@ -32,15 +32,9 @@ class VoterInfoFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        //TODO: Populate voter info -- hide views without provided data.
-        /**
-        Hint: You will need to ensure proper data is provided from previous fragment.
-         */
-
         arguments?.let { argsBundle ->
             val electionId = VoterInfoFragmentArgs.fromBundle(argsBundle).argElectionId
             val division = VoterInfoFragmentArgs.fromBundle(argsBundle).argDivision
-            Timber.d("Fragment arguments: electionId = $electionId, division = $division")
             viewModel.loadVoterInfo(electionId, division)
         }
 
@@ -50,8 +44,6 @@ class VoterInfoFragment : Fragment() {
             { uri -> openUrlInBrowser(uri) }
         )
 
-        //TODO: Handle save button UI state
-        //TODO: cont'd Handle save button clicks
         return binding.root
     }
 

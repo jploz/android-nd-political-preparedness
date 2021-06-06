@@ -13,11 +13,9 @@ class ElectionsViewModel(
     private val electionsRepository: ElectionsRepository
 ) : ViewModel() {
 
-    //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
-
-    //TODO: Create functions to navigate to saved or upcoming election voter info
-
     val upcomingElections = electionsRepository.getUpcomingElections().asLiveData()
+
+    val favoriteElections = electionsRepository.getFavoriteElections().asLiveData()
 
     private val _errorMessage = MutableLiveData<Int>()
     val errorMessage: LiveData<Int> = _errorMessage

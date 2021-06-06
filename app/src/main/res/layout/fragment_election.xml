@@ -6,6 +6,8 @@
     <!-- node to connect Election ViewModel -->
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.example.android.politicalpreparedness.election.ElectionsViewModel" />
@@ -17,28 +19,46 @@
         android:layout_height="match_parent"
         tools:context="com.example.android.politicalpreparedness.MainActivity">
 
-        <!-- TODO: Add Saved Election Recycler and Header -->
-
         <!-- Upcoming Election Recycler and Header -->
         <TextView
             android:id="@+id/upcomingElectionsListHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:text="@string/upcoming_elections"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/upcomingElectionsListPlaceholder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="@string/no_upcoming_elections_available"
+            android:textAlignment="center"
+            android:visibility="@{viewModel.upcomingElections.size() == 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@+id/saved_elections_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/upcomingElectionsListHeader" />
+
+        <!-- Saved Election Recycler and Header -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/upcomingElectionsList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:paddingTop="@dimen/default_padding"
-            android:paddingBottom="@dimen/large_padding"
+            android:paddingBottom="@dimen/default_padding"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/saved_elections_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/upcomingElectionsListHeader"
+            app:layout_constraintVertical_chainStyle="spread_inside"
             app:listData="@{viewModel.upcomingElections}"
             tools:listitem="@layout/item_election" />
 
@@ -46,10 +66,41 @@
             android:id="@+id/saved_elections_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:paddingTop="@dimen/default_padding"
             android:text="@string/favorite_elections"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/savedElectionsList"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/upcomingElectionsList" />
+
+        <TextView
+            android:id="@+id/list_placeholder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="@string/no_favorite_elections_available"
+            android:textAlignment="center"
+            android:visibility="@{viewModel.favoriteElections.size() == 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/saved_elections_title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/savedElectionsList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingTop="@dimen/default_padding"
+            android:paddingBottom="@dimen/default_padding"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/saved_elections_title"
+            app:listData="@{viewModel.favoriteElections}"
+            tools:listitem="@layout/item_election" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

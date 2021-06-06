@@ -6,11 +6,12 @@
     <string name="find_my_representatives">Find my representatives</string>
     <string name="favorite_elections">Bookmarked elections</string>
     <string name="no_elections">No elections found</string>
-    <string name="no_favorite_elections">No elections bookmarked</string>
     <string name="error_refreshing_elections">Unable to get elections data!</string>
     <string name="address_not_available">Address not available</string>
     <string name="location_finder_url_not_available">Voting locations not available</string>
     <string name="ballot_info_url_not_available">Ballot information not available</string>
+    <string name="follow_election">Follow election</string>
+    <string name="unfollow_election">Unfollow election</string>
     <string name="address_title">Address</string>
     <string name="election_information_title">Election Information</string>
     <string name="representative_search_title">Representative Search</string>
@@ -26,5 +27,7 @@
     <string name="city">City</string>
     <string name="zip">ZIP</string>
     <string name="no_representatives_available">Start search to list your representatives.</string>
+    <string name="no_upcoming_elections_available">No upcoming elections found.</string>
+    <string name="no_favorite_elections_available">Follow upcoming elections to see your favorite elections.</string>
 
 </resources>

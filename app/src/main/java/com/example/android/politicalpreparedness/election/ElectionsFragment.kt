@@ -42,10 +42,24 @@ class ElectionsFragment : Fragment() {
             })
         binding.upcomingElectionsList.adapter = upcomingElectionListAdapter
 
+        val favoriteElectionsListAdapter = makeElectionsListAdapter()
+        binding.savedElectionsList.adapter = favoriteElectionsListAdapter
+
         viewModel.errorMessage.observe(viewLifecycleOwner, { resId ->
             Snackbar.make(requireView(), resId, Snackbar.LENGTH_LONG).show()
         })
 
         return binding.root
     }
+
+    private fun makeElectionsListAdapter() =
+        ElectionListAdapter(ElectionListAdapter.ElectionListener { election ->
+            this.findNavController()
+                .navigate(
+                    ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(
+                        election.id,
+                        election.division
+                    )
+                )
+        })
 }

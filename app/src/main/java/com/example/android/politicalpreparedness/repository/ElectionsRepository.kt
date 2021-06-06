@@ -1,6 +1,7 @@
 package com.example.android.politicalpreparedness.repository
 
 import com.example.android.politicalpreparedness.database.ElectionDao
+import com.example.android.politicalpreparedness.database.entities.Favorite
 import com.example.android.politicalpreparedness.network.CivicsApiService
 import com.example.android.politicalpreparedness.network.models.Division
 import com.example.android.politicalpreparedness.network.models.Election
@@ -33,6 +34,16 @@ class ElectionsRepository(
                 throw e
             }
         }
+    }
+
+    fun getFavoriteById(id: Int): Flow<Favorite?> = electionDao.getFavoriteById(id)
+
+    suspend fun markElectionAsFavorite(id: Favorite) = electionDao.markElectionAsFavorite(id)
+
+    suspend fun unmarkElectionAsFavorite(id: Int) = electionDao.unmarkElectionAsFavorite(id)
+
+    fun getFavoriteElections(): Flow<List<Election>> {
+        return electionDao.getAllFavoriteElections()
     }
 
     //TODO: move into voter info parser

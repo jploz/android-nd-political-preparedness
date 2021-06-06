@@ -1,7 +1,10 @@
 package com.example.android.politicalpreparedness.election
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.android.politicalpreparedness.R
+import com.example.android.politicalpreparedness.SingleLiveEvent
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,8 +20,7 @@ class ElectionsViewModel(
 
     val favoriteElections = electionsRepository.getFavoriteElections().asLiveData()
 
-    private val _errorMessage = MutableLiveData<Int>()
-    val errorMessage: LiveData<Int> = _errorMessage
+    val errorMessage = SingleLiveEvent<Int>()
 
     init {
         refreshUpcomingElections()
@@ -30,8 +32,7 @@ class ElectionsViewModel(
                 electionsRepository.refreshUpcomingElections()
             } catch (e: Exception) {
                 Timber.e("$e")
-                _errorMessage.postValue(R.string.error_refreshing_elections)
-                //TODO: display error message using one-time event
+                errorMessage.postValue(R.string.error_refreshing_elections)
             }
         }
     }

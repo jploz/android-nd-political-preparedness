@@ -6,7 +6,7 @@
     <string name="find_my_representatives">Find my representatives</string>
     <string name="favorite_elections">Bookmarked elections</string>
     <string name="no_elections">No elections found</string>
-    <string name="error_refreshing_elections">Unable to get elections data!</string>
+    <string name="error_refreshing_elections">Unable to update elections data!</string>
     <string name="address_not_available">Address not available</string>
     <string name="location_finder_url_not_available">Voting locations not available</string>
     <string name="ballot_info_url_not_available">Ballot information not available</string>

@@ -7,6 +7,7 @@
     <string name="favorite_elections">Bookmarked elections</string>
     <string name="no_elections">No elections found</string>
     <string name="error_refreshing_elections">Unable to update elections data!</string>
+    <string name="error_get_election_from_db">An error occurred while loading election data from database!</string>
     <string name="address_not_available">Address not available</string>
     <string name="location_finder_url_not_available">Voting locations not available</string>
     <string name="ballot_info_url_not_available">Ballot information not available</string>
@@ -29,5 +30,6 @@
     <string name="no_representatives_available">Start search to list your representatives.</string>
     <string name="no_upcoming_elections_available">No upcoming elections found.</string>
     <string name="no_favorite_elections_available">Follow upcoming elections to see your favorite elections.</string>
+    <string name="error_open_link">Unable to open link: no browser found.</string>
 
 </resources>

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.SingleLiveEvent
 import com.example.android.politicalpreparedness.database.entities.Favorite
 import com.example.android.politicalpreparedness.network.models.Division
@@ -41,6 +42,8 @@ class VoterInfoViewModel(
     private val _isFavorite = MutableLiveData(false)
     val isFavorite: LiveData<Boolean> = _isFavorite
 
+    val errorMessage = SingleLiveEvent<Int>()
+
     fun toggleBookmarkElection() {
         viewModelScope.launch {
             election.value?.let { currentSelection ->
@@ -63,9 +66,13 @@ class VoterInfoViewModel(
                 _election.value = electionsRepository.getElectionById(electionId).first()
 
                 val fav = electionsRepository.getFavoriteById(electionId).firstOrNull()
-                Timber.d("Favorite from DB: $fav")
                 _isFavorite.value = fav != null
+            } catch (e: Exception) {
+                Timber.e("Unable to get election: $e")
+                errorMessage.value = R.string.error_get_election_from_db
+            }
 
+            try {
                 val voterInfoResponse = electionsRepository.getVoterInfo(
                     electionId,
                     electionsRepository.getVoterInfoAddressFromDivision(division)
@@ -75,8 +82,7 @@ class VoterInfoViewModel(
                 _ballotInfoUrl.value = getBallotInfoUrl(voterInfoResponse)
 
             } catch (e: Exception) {
-                Timber.w("Unable to fetch voter info: $e")
-                //TODO: trigger display of error message
+                Timber.w("Unable to fetch additional/optional voter info: $e")
             }
         }
     }

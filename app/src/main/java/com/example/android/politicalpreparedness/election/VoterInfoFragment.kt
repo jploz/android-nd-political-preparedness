@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.android.politicalpreparedness.PoliticalPreparednessApp
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
 import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
@@ -44,6 +45,10 @@ class VoterInfoFragment : Fragment() {
             { uri -> openUrlInBrowser(uri) }
         )
 
+        viewModel.errorMessage.observe(viewLifecycleOwner, { resId ->
+            Snackbar.make(requireView(), resId, Snackbar.LENGTH_LONG).show()
+        })
+
         return binding.root
     }
 
@@ -53,11 +58,8 @@ class VoterInfoFragment : Fragment() {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
             requireContext().startActivity(intent)
         } catch (e: ActivityNotFoundException) {
-            Snackbar.make(
-                requireView(),
-                "Unable to open link: no browser found.",
-                Snackbar.LENGTH_LONG
-            ).show()
+            Timber.e("Unable to open link: $uri\n$e")
+            viewModel.errorMessage.postValue(R.string.error_open_link)
         }
     }
 }

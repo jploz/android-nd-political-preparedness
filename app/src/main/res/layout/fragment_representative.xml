@@ -12,14 +12,15 @@
             type="com.example.android.politicalpreparedness.representative.RepresentativeViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/representativeFragmentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingStart="@dimen/medium_padding"
         android:paddingTop="@dimen/medium_padding"
         android:paddingEnd="@dimen/medium_padding"
-        android:paddingBottom="@dimen/default_padding">
+        android:paddingBottom="@dimen/default_padding"
+        app:layoutDescription="@xml/fragment_representative_scene">
 
         <TextView
             android:id="@+id/search_title"
@@ -150,6 +151,6 @@
             app:listData="@{viewModel.representatives}"
             tools:listitem="@layout/item_representative" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </layout>

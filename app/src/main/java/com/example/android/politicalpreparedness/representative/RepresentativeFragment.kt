@@ -85,6 +85,10 @@ class DetailFragment : Fragment() {
 
         binding.representativesList.adapter = RepresentativeListAdapter()
 
+        viewModel.errorMessage.observe(viewLifecycleOwner, { resId ->
+            Snackbar.make(requireView(), resId, Snackbar.LENGTH_LONG).show()
+        })
+
         binding.buttonLocation.setOnClickListener {
             onClickButtonLocation()
         }

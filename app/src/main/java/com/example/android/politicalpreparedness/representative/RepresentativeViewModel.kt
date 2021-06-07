@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.R
+import com.example.android.politicalpreparedness.SingleLiveEvent
 import com.example.android.politicalpreparedness.repository.RepresentativesRepository
 import com.example.android.politicalpreparedness.representative.model.Representative
 import com.example.android.politicalpreparedness.representative.model.UserAddress
@@ -15,6 +17,8 @@ import timber.log.Timber
 class RepresentativeViewModel(
     private val representativesRepository: RepresentativesRepository
 ) : ViewModel() {
+
+    val errorMessage = SingleLiveEvent<Int>()
 
     // establish live data for representatives and address
     private val _address = MutableLiveData(UserAddress())
@@ -35,13 +39,14 @@ class RepresentativeViewModel(
                     Timber.d("Representatives: ${_representatives.value}")
 
                 } catch (e: Exception) {
-                    //TODO: handle network error (e.g. invalid address)
                     Timber.e("$e")
                     _representatives.value = emptyList()
+                    errorMessage.value = R.string.error_get_representatives
                 }
             }
         } else {
             Timber.w("Unable to load representatives: address is not set")
+            errorMessage.value = R.string.error_get_representatives_no_address
         }
     }
 

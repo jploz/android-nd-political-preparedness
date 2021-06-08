@@ -32,7 +32,6 @@ class RepresentativesRepository(
     }
 
     private fun formatUserAddress(address: UserAddress): String {
-        //TODO: handle cases where fields are empty (e.g. city in the case of New York)
         var output = address.line1.plus("\n")
         if (address.line2.isNotEmpty()) output = output.plus(address.line2).plus("\n")
         output = output.plus("${address.city}, ${address.state} ${address.zip}")

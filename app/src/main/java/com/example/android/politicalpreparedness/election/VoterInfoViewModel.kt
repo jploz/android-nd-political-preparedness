@@ -38,7 +38,6 @@ class VoterInfoViewModel(
     private val _openUrlInBrowserEvent = SingleLiveEvent<String>()
     val openUrlInBrowserEvent: SingleLiveEvent<String> = _openUrlInBrowserEvent
 
-    //TODO: how to use favorite (as flow) directly as live data (how to set election id?)?
     private val _isFavorite = MutableLiveData(false)
     val isFavorite: LiveData<Boolean> = _isFavorite
 
@@ -59,7 +58,6 @@ class VoterInfoViewModel(
         }
     }
 
-    //TODO: rename to `setupElectionInfo`
     fun loadVoterInfo(electionId: Int, division: Division) {
         viewModelScope.launch {
             try {
@@ -87,8 +85,6 @@ class VoterInfoViewModel(
         }
     }
 
-    //TODO: refactor methods for parsing VoterInfoResponse into its own parser
-    //TODO: improve handling of default values of each property, wrap them into a class
     private fun getAddressFormatted(voterInfo: VoterInfoResponse?): String {
         voterInfo?.state?.let { states ->
             if (states.isNotEmpty()) {

@@ -27,7 +27,6 @@ interface ElectionDao {
     @Query("SELECT * FROM election_table WHERE id = :id")
     fun getElectionById(id: Int): Flow<Election>
 
-    //TODO: use custom query here and take Int as parameter?
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun markElectionAsFavorite(id: Favorite)
 

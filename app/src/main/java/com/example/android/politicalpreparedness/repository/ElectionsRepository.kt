@@ -46,7 +46,7 @@ class ElectionsRepository(
         return electionDao.getAllFavoriteElections()
     }
 
-    //TODO: move into voter info parser
+    // this could/should be moved into voter info parser
     fun getVoterInfoAddressFromDivision(division: Division): String {
         // VIP test election (id=2000) provides only country code, no state code: voter info n.a.
         // some elections require an address in the form: "state country" e.g. "va us"
